@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adriana Sousa - Transformação Mental</title>
+    
+    <!-- Meta Tags para Meta Ads e SEO -->
+    <meta name="description" content="Transformação mental personalizada com Adriana Sousa. Especialista em desenvolvimento pessoal e autoconhecimento.">
+    <meta property="og:title" content="Adriana Sousa - Transformação Mental">
+    <meta property="og:description" content="Transformação mental personalizada para sua região. Desperte seu potencial com técnicas comprovadas.">
+    <meta property="og:image" content="https://pub-e40d9ad14e5a4e13b2bfe7e2ae67bb03.r2.dev/Adriana-vmake%20(1).png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Preload otimizado -->
+    <link rel="preload" as="image" href="https://pub-e40d9ad14e5a4e13b2bfe7e2ae67bb03.r2.dev/Adriana-vmake%20(1).png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #F8F5F0;
+            --text: #33353A;
+            --accent: #D4AF37;
+            --dark: #1A2035;
+            --white: #ffffff;
+            --purple: #7C3AED;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 70%, #B8860B 100%);
+            --shadow-luxury: 0 15px 50px rgba(26, 32, 53, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #F8F5F0 0%, #E8E5E0 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 15px;
+            position: relative;
+        }
+
+        .avatar-section {
+            text-align: center;
+            padding: 20px 15px 15px;
+            background: var(--white);
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-luxury);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            margin-top: 15px;
+            transition: all 1s ease;
+        }
+
+        .name {
+            font-size: 26px;
+            font-weight: 900;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .specialty {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 12px;
+        }
+
+        .avatar-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin: 15px 0 20px 0;
+        }
+
+        .avatar {
+            width: 350px;
+            height: 520px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-luxury);
+            transition: all 0.5s ease;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            will-change: transform;
+        }
+
+        .avatar-message {
+            position: absolute;
+            top: 28%;
+            left: 55%;
+            transform: translateX(-50%);
+            width: 160px;
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--dark);
+            text-align: center;
+            opacity: 0;
+            transition: all 0.6s ease;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+            padding: 8px 10px;
+            background: transparent;
+            border-radius: 0;
+            line-height: 1.3;
+        }
+
+        .avatar-message.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        .avatar-message.shock {
+            color: #DC2626;
+            font-size: 16px;
+        }
+
+        /* Responsivo */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .avatar {
+                width: 280px;
+                height: 420px;
+            }
+            
+            .avatar-message {
+                width: 140px;
+                font-size: 12px;
+            }
+            
+            .avatar-message.shock {
+                font-size: 14px;
+            }
+            
+            .name {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="avatar-section">
+            <div class="name">Adriana Sousa</div>
+            <div class="specialty">Especialista em Transformação Mental</div>
+            
+            <div class="avatar-container">
+                <img src="https://pub-e40d9ad14e5a4e13b2bfe7e2ae67bb03.r2.dev/Adriana-vmake%20(1).png" 
+                     alt="Adriana Sousa - Especialista em Transformação Mental" 
+                     class="avatar"
+                     loading="eager">
+                <div id="avatarMessage" class="avatar-message">Detectando sua região...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== SISTEMA COMPLETO: 27 ESTADOS + FUSOS HORÁRIOS ====================
+        
+        const SISTEMA_COMPLETO = {
+            // Configuração de Estados com Fusos Horários
+            ESTADOS_CONFIG: {
+                // ACRE - UTC-5
+                'AC': { 
+                    sigla: 'AC', 
+                    nome: 'Acre',
+                    gentilico: 'Acreana', 
+                    expressao: 'nossa!',
+                    timezone: 'America/Rio_Branco',
+                    utc: -5
+                },
+                
+                // AMAZÔNIA/RONDÔNIA/RORAIMA/MT - UTC-4  
+                'AM': { 
+                    sigla: 'AM', 
+                    nome: 'Amazonas',
+                    gentilico: 'Amazonense', 
+                    expressao: 'mano!',
+                    timezone: 'America/Manaus',
+                    utc: -4
+                },
+                'RO': { 
+                    sigla: 'RO', 
+                    nome: 'Rondônia',
+                    gentilico: 'Rondoniense', 
+                    expressao: 'tchê!',
+                    timezone: 'America/Porto_Velho',
+                    utc: -4
+                },
+                'RR': { 
+                    sigla: 'RR', 
+                    nome: 'Roraima',
+                    gentilico: 'Roraimense', 
+                    expressao: 'mano!',
+                    timezone: 'America/Boa_Vista',
+                    utc: -4
+                },
+                'MT': { 
+                    sigla: 'MT', 
+                    nome: 'Mato Grosso',
+                    gentilico: 'Mato-grossense', 
+                    expressao: 'tche!',
+                    timezone: 'America/Cuiaba',
+                    utc: -4
+                },
+                
+                // RESTO DO BRASIL - UTC-3 (22 estados)
+                'SP': { 
+                    sigla: 'SP', 
+                    nome: 'São Paulo',
+                    gentilico: 'Paulista', 
+                    expressao: 'nossa!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'RJ': { 
+                    sigla: 'RJ', 
+                    nome: 'Rio de Janeiro',
+                    gentilico: 'Carioca', 
+                    expressao: 'véi!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'MG': { 
+                    sigla: 'MG', 
+                    nome: 'Minas Gerais',
+                    gentilico: 'Mineira', 
+                    expressao: 'uai!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'BA': { 
+                    sigla: 'BA', 
+                    nome: 'Bahia',
+                    gentilico: 'Baiana', 
+                    expressao: 'oxe!',
+                    timezone: 'America/Bahia',
+                    utc: -3
+                },
+                'RS': { 
+                    sigla: 'RS', 
+                    nome: 'Rio Grande do Sul',
+                    gentilico: 'Gaúcha', 
+                    expressao: 'bah!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'PR': { 
+                    sigla: 'PR', 
+                    nome: 'Paraná',
+                    gentilico: 'Paranaense', 
+                    expressao: 'né!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'SC': { 
+                    sigla: 'SC', 
+                    nome: 'Santa Catarina',
+                    gentilico: 'Catarinense', 
+                    expressao: 'tchê!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'ES': { 
+                    sigla: 'ES', 
+                    nome: 'Espírito Santo',
+                    gentilico: 'Capixaba', 
+                    expressao: 'né!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'GO': { 
+                    sigla: 'GO', 
+                    nome: 'Goiás',
+                    gentilico: 'Goiana', 
+                    expressao: 'uai!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'DF': { 
+                    sigla: 'DF', 
+                    nome: 'Distrito Federal',
+                    gentilico: 'Brasiliense', 
+                    expressao: 'né!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'CE': { 
+                    sigla: 'CE', 
+                    nome: 'Ceará',
+                    gentilico: 'Cearense', 
+                    expressao: 'meu rei!',
+                    timezone: 'America/Fortaleza',
+                    utc: -3
+                },
+                'PE': { 
+                    sigla: 'PE', 
+                    nome: 'Pernambuco',
+                    gentilico: 'Pernambucana', 
+                    expressao: 'véi!',
+                    timezone: 'America/Recife',
+                    utc: -3
+                },
+                'PB': { 
+                    sigla: 'PB', 
+                    nome: 'Paraíba',
+                    gentilico: 'Paraibana', 
+                    expressao: 'oxente!',
+                    timezone: 'America/Fortaleza',
+                    utc: -3
+                },
+                'RN': { 
+                    sigla: 'RN', 
+                    nome: 'Rio Grande do Norte',
+                    gentilico: 'Potiguar', 
+                    expressao: 'visse!',
+                    timezone: 'America/Fortaleza',
+                    utc: -3
+                },
+                'AL': { 
+                    sigla: 'AL', 
+                    nome: 'Alagoas',
+                    gentilico: 'Alagoana', 
+                    expressao: 'oxente!',
+                    timezone: 'America/Maceio',
+                    utc: -3
+                },
+                'SE': { 
+                    sigla: 'SE', 
+                    nome: 'Sergipe',
+                    gentilico: 'Sergipana', 
+                    expressao: 'é!',
+                    timezone: 'America/Maceio',
+                    utc: -3
+                },
+                'PI': { 
+                    sigla: 'PI', 
+                    nome: 'Piauí',
+                    gentilico: 'Piauiense', 
+                    expressao: 'rapaz!',
+                    timezone: 'America/Fortaleza',
+                    utc: -3
+                },
+                'MA': { 
+                    sigla: 'MA', 
+                    nome: 'Maranhão',
+                    gentilico: 'Maranhense', 
+                    expressao: 'rapaz!',
+                    timezone: 'America/Fortaleza',
+                    utc: -3
+                },
+                'PA': { 
+                    sigla: 'PA', 
+                    nome: 'Pará',
+                    gentilico: 'Paraense', 
+                    expressao: 'mana!',
+                    timezone: 'America/Belem',
+                    utc: -3
+                },
+                'AP': { 
+                    sigla: 'AP', 
+                    nome: 'Amapá',
+                    gentilico: 'Amapaense', 
+                    expressao: 'cara!',
+                    timezone: 'America/Belem',
+                    utc: -3
+                },
+                'TO': { 
+                    sigla: 'TO', 
+                    nome: 'Tocantins',
+                    gentilico: 'Tocantinense', 
+                    expressao: 'sô!',
+                    timezone: 'America/Araguaina',
+                    utc: -3
+                },
+                'MS': { 
+                    sigla: 'MS', 
+                    nome: 'Mato Grosso do Sul',
+                    gentilico: 'Sul-mato-grossense', 
+                    expressao: 'né!',
+                    timezone: 'America/Campo_Grande',
+                    utc: -3
+                }
+            },
+
+            // Mensagens contextuais por horário LOCAL de cada estado
+            getMensagemTempo: function(hora, dia, estado) {
+                const config = this.ESTADOS_CONFIG[estado];
+                const diasSemana = ['Domingou', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sextou', 'Sábado'];
+                const diaMensagem = diasSemana[dia];
+                
+                let periodo = '';
+                let acao = '';
+                
+                if (hora >= 5 && hora < 12) {
+                    periodo = 'Bom dia';
+                    if (hora < 7) acao = 'Acordando cedo';
+                    else if (hora < 9) acao = 'Começando o dia';
+                    else acao = 'Manhã produtiva';
+                } else if (hora >= 12 && hora < 14) {
+                    periodo = 'Boa tarde';
+                    acao = 'Hora do almoço';
+                } else if (hora >= 14 && hora < 18) {
+                    periodo = 'Boa tarde';
+                    if (dia === 5) acao = 'então! Sextou néh'; // Sexta especial
+                    else acao = 'Voltando ao trabalho';
+                } else if (hora >= 18 && hora < 22) {
+                    periodo = 'Boa noite';
+                    acao = 'Chegando em casa';
+                } else {
+                    periodo = 'Boa noite';
+                    acao = 'Ainda acordada';
+                }
+                
+                return `${periodo}, ${acao}!`;
+            },
+
+            // Horário local correto para cada estado
+            getHorarioLocal: function(estado) {
+                const config = this.ESTADOS_CONFIG[estado];
+                const agora = new Date();
+                
+                try {
+                    // Usar timezone específico do estado
+                    const horarioLocal = new Date(agora.toLocaleString("en-US", {
+                        timeZone: config.timezone
+                    }));
+                    
+                    return {
+                        hora: horarioLocal.getHours(),
+                        minuto: horarioLocal.getMinutes(),
+                        dia: horarioLocal.getDay(),
+                        formatado: `${horarioLocal.getHours().toString().padStart(2, '0')}:${horarioLocal.getMinutes().toString().padStart(2, '0')}`
+                    };
+                } catch (error) {
+                    // Fallback para horário do navegador
+                    return {
+                        hora: agora.getHours(),
+                        minuto: agora.getMinutes(),
+                        dia: agora.getDay(),
+                        formatado: `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`
+                    };
+                }
+            },
+
+            // Gerar sequência completa personalizada
+            gerarSequencia: function(estado) {
+                const config = this.ESTADOS_CONFIG[estado] || this.ESTADOS_CONFIG['SP'];
+                const tempo = this.getHorarioLocal(estado);
+                const mensagemTempo = this.getMensagemTempo(tempo.hora, tempo.dia, estado);
+                
+                return [
+                    config.sigla,                                           // "SP"
+                    `É ${config.gentilico} ${config.expressao}`,           // "É Paulista nossa!"
+                    `${tempo.formatado} - ${mensagemTempo}`,               // "14:30 - Boa tarde, então! Sextou néh!"
+                    "Como as pessoas que TE AMAM TE CHAMAM? 👇"             // Coleta nome com mãozinha
+                ];
+            }
+        };
+
+        // ==================== DETECÇÃO DE LOCALIZAÇÃO ====================
+        
+        async function detectUserLocation() {
+            const apis = [
+                {
+                    url: 'https://ipapi.co/json/',
+                    parse: (data) => ({
+                        regiao: data.region?.toLowerCase() || '',
+                        cidade: data.city || 'Brasil'
+                    })
+                },
+                {
+                    url: 'https://get.geojs.io/v1/ip/geo.json',
+                    parse: (data) => ({
+                        regiao: data.region?.toLowerCase() || '',
+                        cidade: data.city || 'Brasil'
+                    })
+                },
+                {
+                    url: 'http://ip-api.com/json/',
+                    parse: (data) => ({
+                        regiao: data.regionName?.toLowerCase() || '',
+                        cidade: data.city || 'Brasil'
+                    })
+                },
+                {
+                    url: 'https://ipwhois.app/json/',
+                    parse: (data) => ({
+                        regiao: data.region?.toLowerCase() || '',
+                        cidade: data.city || 'Brasil'
+                    })
+                }
+            ];
+
+            for (const api of apis) {
+                try {
+                    console.log(`Tentando API: ${api.url}`);
+                    
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+                    
+                    const response = await fetch(api.url, {
+                        signal: controller.signal,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const data = await response.json();
+                    const parsed = api.parse(data);
+                    
+                    console.log(`Sucesso com API: ${api.url}`, parsed);
+                    
+                    if (parsed.regiao) {
+                        const estado = mapearEstado(parsed.regiao);
+                        if (estado) {
+                            return { estado, cidade: parsed.cidade };
+                        }
+                    }
+                    
+                } catch (error) {
+                    console.log(`Erro na API ${api.url}:`, error.message);
+                    continue;
+                }
+            }
+            
+            // Fallback final - usar timezone do navegador
+            try {
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                console.log(`Fallback timezone: ${timezone}`);
+                
+                if (timezone.includes('Sao_Paulo') || timezone.includes('America/Sao_Paulo')) {
+                    return { estado: 'SP', cidade: 'São Paulo' };
+                } else if (timezone.includes('America/Fortaleza')) {
+                    return { estado: 'CE', cidade: 'Fortaleza' };
+                } else if (timezone.includes('America/Recife')) {
+                    return { estado: 'PE', cidade: 'Recife' };
+                } else if (timezone.includes('America/Manaus')) {
+                    return { estado: 'AM', cidade: 'Manaus' };
+                } else if (timezone.includes('America/Campo_Grande')) {
+                    return { estado: 'MS', cidade: 'Campo Grande' };
+                } else if (timezone.includes('America/Cuiaba')) {
+                    return { estado: 'MT', cidade: 'Cuiabá' };
+                } else if (timezone.includes('America/Porto_Velho')) {
+                    return { estado: 'RO', cidade: 'Porto Velho' };
+                } else if (timezone.includes('America/Rio_Branco')) {
+                    return { estado: 'AC', cidade: 'Rio Branco' };
+                }
+            } catch (timezoneError) {
+                console.log('Erro no timezone fallback:', timezoneError);
+            }
+            
+            return { estado: 'SP', cidade: 'Brasil' };
+        }
+
+        function mapearEstado(regiao) {
+            const mapeamento = {
+                'são paulo': 'SP', 'sao paulo': 'SP', 'sp': 'SP',
+                'rio de janeiro': 'RJ', 'rj': 'RJ',
+                'minas gerais': 'MG', 'mg': 'MG',
+                'bahia': 'BA', 'ba': 'BA',
+                'rio grande do sul': 'RS', 'rs': 'RS',
+                'paraná': 'PR', 'parana': 'PR', 'pr': 'PR',
+                'santa catarina': 'SC', 'sc': 'SC',
+                'ceará': 'CE', 'ceara': 'CE', 'ce': 'CE',
+                'pernambuco': 'PE', 'pe': 'PE',
+                'goiás': 'GO', 'goias': 'GO', 'go': 'GO',
+                'espírito santo': 'ES', 'espirito santo': 'ES', 'es': 'ES',
+                'distrito federal': 'DF', 'df': 'DF', 'brasília': 'DF', 'brasilia': 'DF',
+                'pará': 'PA', 'para': 'PA', 'pa': 'PA',
+                'maranhão': 'MA', 'maranhao': 'MA', 'ma': 'MA',
+                'paraíba': 'PB', 'paraiba': 'PB', 'pb': 'PB',
+                'rio grande do norte': 'RN', 'rn': 'RN',
+                'alagoas': 'AL', 'al': 'AL',
+                'sergipe': 'SE', 'se': 'SE',
+                'piauí': 'PI', 'piaui': 'PI', 'pi': 'PI',
+                'acre': 'AC', 'ac': 'AC',
+                'amazonas': 'AM', 'am': 'AM',
+                'amapá': 'AP', 'amapa': 'AP', 'ap': 'AP',
+                'rondônia': 'RO', 'rondonia': 'RO', 'ro': 'RO',
+                'roraima': 'RR', 'rr': 'RR',
+                'tocantins': 'TO', 'to': 'TO',
+                'mato grosso': 'MT', 'mt': 'MT',
+                'mato grosso do sul': 'MS', 'ms': 'MS'
+            };
+            
+            return mapeamento[regiao] || null;
+        }
+
+        // ==================== SEQUÊNCIA DE MENSAGENS ====================
+        
+        async function startAvatarSequence() {
+            const message = document.getElementById('avatarMessage');
+            
+            // Detectar localização
+            const location = await detectUserLocation();
+            console.log('Estado detectado:', location.estado);
+            
+            // Gerar sequência personalizada usando o novo sistema
+            const sequencia = SISTEMA_COMPLETO.gerarSequencia(location.estado);
+            console.log('Sequência gerada:', sequencia);
+            
+            // Executar sequência de mensagens
+            for (let i = 0; i < sequencia.length; i++) {
+                message.classList.remove('show', 'shock');
+                await sleep(150);
+                
+                message.textContent = sequencia[i];
+                message.classList.add('show');
+                if (i === 1) message.classList.add('shock');
+                
+                await sleep(i === 2 ? 2500 : 1500);
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // ==================== INICIALIZAÇÃO ====================
+        
+        console.log('Sistema completo carregado: 27 estados + fusos horários corretos');
+        
+        // Iniciar sequência após 2 segundos
+        setTimeout(() => {
+            startAvatarSequence();
+        }, 2000);
+        
+    </script>
+</body>
+</html>
