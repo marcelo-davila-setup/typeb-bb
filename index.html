@@ -29,6 +29,12 @@
             --purple: #7C3AED;
             --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 70%, #B8860B 100%);
             --shadow-luxury: 0 15px 50px rgba(26, 32, 53, 0.2);
+            
+            /* Cores para cada frase */
+            --cor-estado: #FF6B35;        /* Laranja vibrante */
+            --cor-gentilico: #7C3AED;     /* Roxo */
+            --cor-horario: #059669;       /* Verde */
+            --cor-pergunta: #DC2626;      /* Vermelho */
         }
 
         * {
@@ -48,69 +54,73 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            padding: 0;
+            margin: 0;
         }
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 100%;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .avatar-section {
             text-align: center;
-            padding: 18px 12px 8px;
+            padding: 16px 12px 12px;
             background: var(--white);
             border-radius: 20px;
             box-shadow: var(--shadow-luxury);
             border: 2px solid rgba(212, 175, 55, 0.3);
             transition: all 1s ease;
             position: relative;
-            min-height: calc(100vh - 20px);
+            width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            align-items: center;
         }
 
         .header-info {
-            margin-bottom: 15px;
-            flex-shrink: 0;
+            margin-bottom: 12px;
+            width: 100%;
         }
 
         .name {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 900;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 4px;
+            line-height: 1.2;
         }
 
         .specialty {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--purple);
             margin-bottom: 8px;
+            line-height: 1.3;
         }
 
         .avatar-container {
             position: relative;
             display: flex;
             justify-content: center;
-            flex: 1;
-            align-items: flex-start;
+            align-items: center;
             width: 100%;
         }
 
         .avatar {
-            /* Maximiza o uso da tela disponível */
-            width: min(95vw, 380px);
-            height: auto;
-            max-height: calc(100vh - 160px);
-            aspect-ratio: 3/4;
+            width: 320px;
+            height: 480px;
             object-fit: cover;
             object-position: center top;
-            border-radius: 18px;
+            border-radius: 16px;
             border: 2px solid rgba(212, 175, 55, 0.3);
             box-shadow: var(--shadow-luxury);
             transition: all 0.5s ease;
@@ -125,8 +135,8 @@
             top: 22%;
             left: 58%;
             transform: translateX(-50%);
-            width: min(45vw, 180px);
-            font-size: clamp(13px, 3.8vw, 15px);
+            width: 160px;
+            font-size: 14px;
             font-weight: 900;
             color: var(--dark);
             text-align: center;
@@ -135,9 +145,10 @@
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
             padding: 8px 10px;
             background: transparent;
-            border-radius: 0;
+            border-radius: 8px;
             line-height: 1.3;
             z-index: 10;
+            border-right: 3px solid transparent;
         }
 
         .avatar-message.show {
@@ -145,125 +156,171 @@
             transform: translateX(-50%) scale(1);
         }
 
-        .avatar-message.shock {
-            color: #DC2626;
-            font-size: clamp(14px, 4.2vw, 17px);
+        /* Cores específicas para cada tipo de mensagem */
+        .avatar-message.fase-estado {
+            color: var(--cor-estado);
+            border-right-color: var(--cor-estado);
         }
 
-        /* Responsivo otimizado para tela cheia */
+        .avatar-message.fase-gentilico {
+            color: var(--cor-gentilico);
+            border-right-color: var(--cor-gentilico);
+        }
+
+        .avatar-message.fase-horario {
+            color: var(--cor-horario);
+            border-right-color: var(--cor-horario);
+        }
+
+        .avatar-message.fase-pergunta {
+            color: var(--cor-pergunta);
+            border-right-color: var(--cor-pergunta);
+            font-size: 16px;
+        }
+
+        /* Efeito de cursor piscando (typewriter) */
+        .avatar-message.typing {
+            border-right: 3px solid currentColor;
+            animation: blinkCursor 1s infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 50% { border-right-color: currentColor; }
+            51%, 100% { border-right-color: transparent; }
+        }
+
+        /* Responsivo para diferentes tamanhos de tela */
         @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-            
             .container {
-                max-width: 100%;
+                padding: 8px;
             }
             
             .avatar-section {
-                padding: 12px 8px 5px;
+                padding: 12px 8px 8px;
                 border-radius: 16px;
-                min-height: calc(100vh - 10px);
+                max-width: 95%;
             }
             
             .avatar {
-                width: min(97vw, 320px);
-                max-height: calc(100vh - 120px);
-                border-radius: 16px;
+                width: 280px;
+                height: 420px;
+                border-radius: 14px;
             }
             
             .avatar-message {
                 top: 20%;
                 left: 60%;
-                width: min(42vw, 160px);
+                width: 140px;
+                font-size: 12px;
             }
             
-            .name {
-                font-size: clamp(22px, 6vw, 26px);
-            }
-
-            .specialty {
-                font-size: clamp(13px, 3.8vw, 15px);
-            }
-
-            .header-info {
-                margin-bottom: 10px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            body {
-                padding: 3px;
-            }
-            
-            .avatar-section {
-                padding: 10px 6px 3px;
-                min-height: calc(100vh - 6px);
-            }
-            
-            .avatar {
-                width: min(98vw, 300px);
-                max-height: calc(100vh - 100px);
-                border-radius: 14px;
-            }
-            
-            .avatar-message {
-                top: 18%;
-                left: 62%;
-                width: min(40vw, 140px);
-            }
-        }
-
-        /* Para telas muito altas (evita avatar muito grande) */
-        @media (min-height: 800px) {
-            .avatar {
-                max-height: 600px;
-            }
-        }
-
-        /* Para landscape mode no mobile */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .avatar-section {
-                min-height: calc(100vh - 10px);
-                padding: 8px 6px 3px;
-            }
-            
-            .avatar {
-                max-height: calc(100vh - 80px);
-            }
-            
-            .header-info {
-                margin-bottom: 5px;
+            .avatar-message.fase-pergunta {
+                font-size: 14px;
             }
             
             .name {
                 font-size: 20px;
             }
-            
+
             .specialty {
-                font-size: 13px;
+                font-size: 12px;
             }
         }
 
-        /* Otimização para performance */
-        .avatar-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: transparent;
-            pointer-events: none;
+        @media (max-width: 360px) {
+            .avatar-section {
+                padding: 10px 6px 6px;
+                max-width: 98%;
+            }
+            
+            .avatar {
+                width: 240px;
+                height: 360px;
+                border-radius: 12px;
+            }
+            
+            .avatar-message {
+                top: 18%;
+                left: 62%;
+                width: 120px;
+                font-size: 11px;
+            }
+
+            .avatar-message.fase-pergunta {
+                font-size: 13px;
+            }
+
+            .name {
+                font-size: 18px;
+            }
+
+            .specialty {
+                font-size: 11px;
+            }
         }
 
-        /* Melhoria na qualidade da imagem */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        /* Para integração com Typebot */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .avatar-section {
+                max-width: 420px;
+            }
+            
             .avatar {
-                image-rendering: -webkit-optimize-contrast;
-                image-rendering: crisp-edges;
-                image-rendering: pixelated;
-                image-rendering: auto;
+                width: 340px;
+                height: 510px;
+            }
+            
+            .avatar-message {
+                width: 170px;
+                left: 55%;
+            }
+
+            .name {
+                font-size: 26px;
+            }
+
+            .specialty {
+                font-size: 15px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .avatar-section {
+                max-width: 450px;
+            }
+            
+            .avatar {
+                width: 360px;
+                height: 540px;
+            }
+            
+            .avatar-message {
+                width: 180px;
+                left: 55%;
+            }
+
+            .name {
+                font-size: 28px;
+            }
+
+            .specialty {
+                font-size: 16px;
+            }
+        }
+
+        /* Animação suave para entrada */
+        .avatar-section {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
@@ -287,35 +344,49 @@
     </div>
 
     <script>
-        // ==================== SISTEMA COMPLETO: 27 ESTADOS + FUSOS HORÁRIOS ====================
+        // ==================== SISTEMA COMPLETO: 26 ESTADOS + DF + GÍRIAS CORRIGIDAS ====================
         
         const SISTEMA_COMPLETO = {
-            // Configuração de Estados com Fusos Horários
+            // Configuração de Estados com Gírias Corrigidas
             ESTADOS_CONFIG: {
-                // ACRE - UTC-5
+                // REGIÃO NORTE (7 estados)
                 'AC': { 
                     sigla: 'AC', 
                     nome: 'Acre',
                     gentilico: 'Acreana', 
-                    expressao: 'nossa!',
+                    expressao: 'rapaz!',
                     timezone: 'America/Rio_Branco',
                     utc: -5
                 },
-                
-                // AMAZÔNIA/RONDÔNIA/RORAIMA/MT - UTC-4  
                 'AM': { 
                     sigla: 'AM', 
                     nome: 'Amazonas',
                     gentilico: 'Amazonense', 
-                    expressao: 'mano!',
+                    expressao: 'mana!',
                     timezone: 'America/Manaus',
                     utc: -4
+                },
+                'AP': { 
+                    sigla: 'AP', 
+                    nome: 'Amapá',
+                    gentilico: 'Amapaense', 
+                    expressao: 'mana!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'PA': { 
+                    sigla: 'PA', 
+                    nome: 'Pará',
+                    gentilico: 'Paraense', 
+                    expressao: 'mana!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
                 },
                 'RO': { 
                     sigla: 'RO', 
                     nome: 'Rondônia',
                     gentilico: 'Rondoniense', 
-                    expressao: 'ôh!',
+                    expressao: 'ué!',
                     timezone: 'America/Porto_Velho',
                     utc: -4
                 },
@@ -323,105 +394,25 @@
                     sigla: 'RR', 
                     nome: 'Roraima',
                     gentilico: 'Roraimense', 
-                    expressao: 'nossa!',
+                    expressao: 'rapaz!',
                     timezone: 'America/Boa_Vista',
                     utc: -4
-                },
-                'MT': { 
-                    sigla: 'MT', 
-                    nome: 'Mato Grosso',
-                    gentilico: 'Mato-grossense', 
-                    expressao: 'tche!',
-                    timezone: 'America/Cuiaba',
-                    utc: -4
-                },
-
-                // BRASÍLIA/SP/RJ/MG/ES/PR/SC/RS/GO/MS/TO/BA/SE/AL/PE/PB/RN/CE/PI/MA/PA/AP - UTC-3
-                'DF': { 
-                    sigla: 'DF', 
-                    nome: 'Distrito Federal',
-                    gentilico: 'Brasiliense', 
-                    expressao: 'oxe!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'SP': { 
-                    sigla: 'SP', 
-                    nome: 'São Paulo',
-                    gentilico: 'Paulista', 
-                    expressao: 'nossa!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'RJ': { 
-                    sigla: 'RJ', 
-                    nome: 'Rio de Janeiro',
-                    gentilico: 'Carioca', 
-                    expressao: 'caraca!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'MG': { 
-                    sigla: 'MG', 
-                    nome: 'Minas Gerais',
-                    gentilico: 'Mineira', 
-                    expressao: 'uai!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'ES': { 
-                    sigla: 'ES', 
-                    nome: 'Espírito Santo',
-                    gentilico: 'Capixaba', 
-                    expressao: 'oxe!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'PR': { 
-                    sigla: 'PR', 
-                    nome: 'Paraná',
-                    gentilico: 'Paranaense', 
-                    expressao: 'bah!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'SC': { 
-                    sigla: 'SC', 
-                    nome: 'Santa Catarina',
-                    gentilico: 'Catarinense', 
-                    expressao: 'bah!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'RS': { 
-                    sigla: 'RS', 
-                    nome: 'Rio Grande do Sul',
-                    gentilico: 'Gaúcha', 
-                    expressao: 'bah tchê!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'GO': { 
-                    sigla: 'GO', 
-                    nome: 'Goiás',
-                    gentilico: 'Goiana', 
-                    expressao: 'ôh!',
-                    timezone: 'America/Sao_Paulo',
-                    utc: -3
-                },
-                'MS': { 
-                    sigla: 'MS', 
-                    nome: 'Mato Grosso do Sul',
-                    gentilico: 'Sul-mato-grossense', 
-                    expressao: 'ôh!',
-                    timezone: 'America/Campo_Grande',
-                    utc: -3
                 },
                 'TO': { 
                     sigla: 'TO', 
                     nome: 'Tocantins',
                     gentilico: 'Tocantinense', 
-                    expressao: 'oxente!',
+                    expressao: 'sô!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+
+                // REGIÃO NORDESTE (9 estados)
+                'AL': { 
+                    sigla: 'AL', 
+                    nome: 'Alagoas',
+                    gentilico: 'Alagoana', 
+                    expressao: 'oxe!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
@@ -433,18 +424,26 @@
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
-                'SE': { 
-                    sigla: 'SE', 
-                    nome: 'Sergipe',
-                    gentilico: 'Sergipana', 
-                    expressao: 'oxe!',
+                'CE': { 
+                    sigla: 'CE', 
+                    nome: 'Ceará',
+                    gentilico: 'Cearense', 
+                    expressao: 'eita!',
+                    timezone: 'America/Fortaleza',
+                    utc: -3
+                },
+                'MA': { 
+                    sigla: 'MA', 
+                    nome: 'Maranhão',
+                    gentilico: 'Maranhense', 
+                    expressao: 'rapaz!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
-                'AL': { 
-                    sigla: 'AL', 
-                    nome: 'Alagoas',
-                    gentilico: 'Alagoana', 
+                'PB': { 
+                    sigla: 'PB', 
+                    nome: 'Paraíba',
+                    gentilico: 'Paraibana', 
                     expressao: 'oxe!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
@@ -457,11 +456,11 @@
                     timezone: 'America/Recife',
                     utc: -3
                 },
-                'PB': { 
-                    sigla: 'PB', 
-                    nome: 'Paraíba',
-                    gentilico: 'Paraibana', 
-                    expressao: 'oxe!',
+                'PI': { 
+                    sigla: 'PI', 
+                    nome: 'Piauí',
+                    gentilico: 'Piauiense', 
+                    expressao: 'véi!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
@@ -473,43 +472,105 @@
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
-                'CE': { 
-                    sigla: 'CE', 
-                    nome: 'Ceará',
-                    gentilico: 'Cearense', 
-                    expressao: 'oxente!',
-                    timezone: 'America/Fortaleza',
-                    utc: -3
-                },
-                'PI': { 
-                    sigla: 'PI', 
-                    nome: 'Piauí',
-                    gentilico: 'Piauiense', 
+                'SE': { 
+                    sigla: 'SE', 
+                    nome: 'Sergipe',
+                    gentilico: 'Sergipana', 
                     expressao: 'oxe!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
-                'MA': { 
-                    sigla: 'MA', 
-                    nome: 'Maranhão',
-                    gentilico: 'Maranhense', 
-                    expressao: 'oxe!',
+
+                // REGIÃO CENTRO-OESTE (3 estados + DF)
+                'DF': { 
+                    sigla: 'DF', 
+                    nome: 'Distrito Federal',
+                    gentilico: 'Brasiliense', 
+                    expressao: 'meu!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
-                'PA': { 
-                    sigla: 'PA', 
-                    nome: 'Pará',
-                    gentilico: 'Paraense', 
-                    expressao: 'mano!',
+                'GO': { 
+                    sigla: 'GO', 
+                    nome: 'Goiás',
+                    gentilico: 'Goiana', 
+                    expressao: 'sô!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 },
-                'AP': { 
-                    sigla: 'AP', 
-                    nome: 'Amapá',
-                    gentilico: 'Amapaense', 
-                    expressao: 'mano!',
+                'MT': { 
+                    sigla: 'MT', 
+                    nome: 'Mato Grosso',
+                    gentilico: 'Mato-grossense', 
+                    expressao: 'trem!',
+                    timezone: 'America/Cuiaba',
+                    utc: -4
+                },
+                'MS': { 
+                    sigla: 'MS', 
+                    nome: 'Mato Grosso do Sul',
+                    gentilico: 'Sul-mato-grossense', 
+                    expressao: 'trem!',
+                    timezone: 'America/Campo_Grande',
+                    utc: -4
+                },
+
+                // REGIÃO SUDESTE (4 estados) - CORREÇÕES AQUI
+                'ES': { 
+                    sigla: 'ES', 
+                    nome: 'Espírito Santo',
+                    gentilico: 'Capixaba', 
+                    expressao: 'Canel Verde!',  // ✅ CORRIGIDO
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'MG': { 
+                    sigla: 'MG', 
+                    nome: 'Minas Gerais',
+                    gentilico: 'Mineira', 
+                    expressao: 'uai!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'RJ': { 
+                    sigla: 'RJ', 
+                    nome: 'Rio de Janeiro',
+                    gentilico: 'Carioca', 
+                    expressao: 'cara!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'SP': { 
+                    sigla: 'SP', 
+                    nome: 'São Paulo',
+                    gentilico: 'Paulista', 
+                    expressao: 'nossa!',  // ✅ CORRIGIDO
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+
+                // REGIÃO SUL (3 estados)
+                'PR': { 
+                    sigla: 'PR', 
+                    nome: 'Paraná',
+                    gentilico: 'Paranaense', 
+                    expressao: 'guria!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'RS': { 
+                    sigla: 'RS', 
+                    nome: 'Rio Grande do Sul',
+                    gentilico: 'Gaúcha', 
+                    expressao: 'tchê!',
+                    timezone: 'America/Sao_Paulo',
+                    utc: -3
+                },
+                'SC': { 
+                    sigla: 'SC', 
+                    nome: 'Santa Catarina',
+                    gentilico: 'Catarinense', 
+                    expressao: 'né!',
                     timezone: 'America/Sao_Paulo',
                     utc: -3
                 }
@@ -522,33 +583,33 @@
                 
                 // Sexta-feira especial
                 if (dia === 5) {
-                    if (hora >= 6 && hora < 12) return `Bom dia ${expressao} Sextou!!`;
-                    if (hora >= 12 && hora < 18) return `Boa tarde ${expressao} Sextou!!`;
-                    if (hora >= 18 && hora < 22) return `Boa noite ${expressao} Sextou!!`;
-                    return `Boa madrugada ${expressao} Sextou!!`;
+                    if (hora >= 6 && hora < 12) return `Bom dia, ${expressao} SEXTOU!!`;
+                    if (hora >= 12 && hora < 18) return `Boa tarde, ${expressao} SEXTOU!!`;
+                    if (hora >= 18 && hora < 22) return `Boa noite, ${expressao} SEXTOU!!`;
+                    return `Boa madrugada, ${expressao} SEXTOU!!`;
                 }
                 
                 // Sábado
                 if (dia === 6) {
-                    if (hora >= 6 && hora < 12) return `Bom dia ${expressao} É sábado!!`;
-                    if (hora >= 12 && hora < 18) return `Boa tarde ${expressao} Sábado!!`;
-                    if (hora >= 18 && hora < 22) return `Boa noite ${expressao} Sábado!!`;
-                    return `Boa madrugada ${expressao}`;
+                    if (hora >= 6 && hora < 12) return `Bom dia, ${expressao} É sábado!!`;
+                    if (hora >= 12 && hora < 18) return `Boa tarde, ${expressao} Sábado!!`;
+                    if (hora >= 18 && hora < 22) return `Boa noite, ${expressao} Sábado!!`;
+                    return `Boa madrugada, ${expressao}`;
                 }
                 
                 // Domingo  
                 if (dia === 0) {
-                    if (hora >= 6 && hora < 12) return `Bom dia ${expressao} Domingou!!`;
-                    if (hora >= 12 && hora < 18) return `Boa tarde ${expressao} Domingo!!`;
-                    if (hora >= 18 && hora < 22) return `Boa noite ${expressao} Domingo!!`;
-                    return `Boa madrugada ${expressao}`;
+                    if (hora >= 6 && hora < 12) return `Bom dia, ${expressao} DOMINGOU!!`;
+                    if (hora >= 12 && hora < 18) return `Boa tarde, ${expressao} Domingo!!`;
+                    if (hora >= 18 && hora < 22) return `Boa noite, ${expressao} Domingo!!`;
+                    return `Boa madrugada, ${expressao}`;
                 }
                 
                 // Dias da semana normais
-                if (hora >= 6 && hora < 12) return `Bom dia ${expressao}`;
-                if (hora >= 12 && hora < 18) return `Boa tarde ${expressao}`;
-                if (hora >= 18 && hora < 22) return `Boa noite ${expressao}`;
-                return `Boa madrugada ${expressao}`;
+                if (hora >= 6 && hora < 12) return `Bom dia, ${expressao}`;
+                if (hora >= 12 && hora < 18) return `Boa tarde, ${expressao}`;
+                if (hora >= 18 && hora < 22) return `Boa noite, ${expressao}`;
+                return `Boa madrugada, ${expressao}`;
             },
 
             // Calcular horário local baseado no timezone do estado
@@ -582,58 +643,99 @@
                 const mensagemTempo = this.getMensagemTempo(tempo.hora, tempo.dia, estado);
                 
                 return [
-                    config.sigla,                                           // "SP"
-                    `É ${config.gentilico} ${config.expressao}`,           // "É Paulista nossa!"
-                    `${tempo.formatado} - ${mensagemTempo}`,               // "14:30 - Boa tarde, então! Sextou néh!"
-                    "Como as pessoas que TE AMAM TE CHAMAM? 👇"             // Coleta nome com mãozinha
+                    {
+                        texto: config.sigla,
+                        classe: 'fase-estado'
+                    },
+                    {
+                        texto: `É ${config.gentilico}, ${config.expressao}`,
+                        classe: 'fase-gentilico'
+                    },
+                    {
+                        texto: `${tempo.formatado} - ${mensagemTempo}`,
+                        classe: 'fase-horario'
+                    },
+                    {
+                        texto: "Como as pessoas que TE AMAM TE CHAMAM? 👇",
+                        classe: 'fase-pergunta'
+                    }
                 ];
             }
         };
 
-        // ==================== DETECÇÃO DE LOCALIZAÇÃO ====================
+        // ==================== DETECÇÃO ROBUSTA COM 6 APIS + FALLBACKS ====================
         
         async function detectUserLocation() {
             const apis = [
+                // API Primária (mais confiável)
                 {
                     url: 'https://ipapi.co/json/',
                     parse: (data) => ({
                         regiao: data.region?.toLowerCase() || '',
-                        cidade: data.city || 'Brasil'
+                        cidade: data.city || 'Brasil',
+                        pais: data.country_code || ''
                     })
                 },
+                // APIs Secundárias
                 {
                     url: 'https://get.geojs.io/v1/ip/geo.json',
                     parse: (data) => ({
                         regiao: data.region?.toLowerCase() || '',
-                        cidade: data.city || 'Brasil'
+                        cidade: data.city || 'Brasil',
+                        pais: data.country_code || ''
                     })
                 },
                 {
                     url: 'http://ip-api.com/json/',
                     parse: (data) => ({
                         regiao: data.regionName?.toLowerCase() || '',
-                        cidade: data.city || 'Brasil'
+                        cidade: data.city || 'Brasil',
+                        pais: data.countryCode || ''
                     })
                 },
                 {
                     url: 'https://ipwhois.app/json/',
                     parse: (data) => ({
                         regiao: data.region?.toLowerCase() || '',
-                        cidade: data.city || 'Brasil'
+                        cidade: data.city || 'Brasil',
+                        pais: data.country_code || ''
+                    })
+                },
+                // APIs Extras (fallback)
+                {
+                    url: 'https://api.ipify.org?format=json',
+                    parse: (data) => ({
+                        regiao: '',
+                        cidade: 'Brasil',
+                        pais: 'BR',
+                        ip: data.ip
+                    })
+                },
+                {
+                    url: 'https://httpbin.org/ip',
+                    parse: (data) => ({
+                        regiao: '',
+                        cidade: 'Brasil', 
+                        pais: 'BR',
+                        ip: data.origin
                     })
                 }
             ];
 
-            for (const api of apis) {
+            for (let i = 0; i < apis.length; i++) {
+                const api = apis[i];
                 try {
-                    console.log(`Tentando API: ${api.url}`);
+                    console.log(`Tentando API ${i + 1}/${apis.length}: ${api.url}`);
                     
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+                    const timeoutId = setTimeout(() => controller.abort(), 4000);
                     
                     const response = await fetch(api.url, {
                         signal: controller.signal,
-                        headers: { 'Accept': 'application/json' }
+                        headers: { 
+                            'Accept': 'application/json',
+                            'User-Agent': 'Mozilla/5.0 (compatible; AdrianaBot/1.0)'
+                        }
                     });
                     
                     clearTimeout(timeoutId);
@@ -643,107 +745,157 @@
                     const data = await response.json();
                     const parsed = api.parse(data);
                     
-                    console.log(`Sucesso com API: ${api.url}`, parsed);
+                    console.log(`Sucesso API ${i + 1}:`, parsed);
                     
-                    if (parsed.regiao) {
+                    // Verificar se é Brasil e se tem região
+                    if (parsed.regiao && (parsed.pais === 'BR' || parsed.pais === 'Brazil' || !parsed.pais)) {
                         const estado = mapearEstado(parsed.regiao);
                         if (estado) {
+                            console.log(`Estado detectado: ${estado} via API ${i + 1}`);
                             return { estado, cidade: parsed.cidade };
                         }
                     }
                     
                 } catch (error) {
-                    console.log(`Erro na API ${api.url}:`, error.message);
+                    console.log(`Erro API ${i + 1} (${api.url}):`, error.message);
                     continue;
                 }
             }
             
-            // Fallback final - usar timezone do navegador
+            // FALLBACK 1: Timezone do navegador
+            console.log('Iniciando fallback por timezone...');
             try {
                 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                console.log(`Fallback timezone: ${timezone}`);
+                console.log(`Timezone detectado: ${timezone}`);
                 
-                if (timezone.includes('Sao_Paulo') || timezone.includes('America/Sao_Paulo')) {
-                    return { estado: 'SP', cidade: 'São Paulo' };
-                } else if (timezone.includes('America/Fortaleza')) {
-                    return { estado: 'CE', cidade: 'Fortaleza' };
-                } else if (timezone.includes('America/Recife')) {
-                    return { estado: 'PE', cidade: 'Recife' };
-                } else if (timezone.includes('America/Manaus')) {
-                    return { estado: 'AM', cidade: 'Manaus' };
-                } else if (timezone.includes('America/Campo_Grande')) {
-                    return { estado: 'MS', cidade: 'Campo Grande' };
-                } else if (timezone.includes('America/Cuiaba')) {
-                    return { estado: 'MT', cidade: 'Cuiabá' };
-                } else if (timezone.includes('America/Porto_Velho')) {
-                    return { estado: 'RO', cidade: 'Porto Velho' };
-                } else if (timezone.includes('America/Rio_Branco')) {
-                    return { estado: 'AC', cidade: 'Rio Branco' };
+                const timezoneMap = {
+                    'America/Sao_Paulo': 'SP',
+                    'America/Fortaleza': 'CE', 
+                    'America/Recife': 'PE',
+                    'America/Manaus': 'AM',
+                    'America/Campo_Grande': 'MS',
+                    'America/Cuiaba': 'MT',
+                    'America/Porto_Velho': 'RO',
+                    'America/Rio_Branco': 'AC',
+                    'America/Boa_Vista': 'RR'
+                };
+                
+                for (const [tz, estado] of Object.entries(timezoneMap)) {
+                    if (timezone.includes(tz)) {
+                        console.log(`Estado detectado por timezone: ${estado}`);
+                        return { estado, cidade: 'Brasil' };
+                    }
                 }
+                
+                // Se é timezone brasileiro mas não específico, assumir SP
+                if (timezone.includes('America') || timezone.includes('Brazil')) {
+                    return { estado: 'SP', cidade: 'Brasil' };
+                }
+                
             } catch (timezoneError) {
-                console.log('Erro no timezone fallback:', timezoneError);
+                console.log('Erro no fallback timezone:', timezoneError);
             }
             
+            // FALLBACK FINAL: São Paulo como padrão
+            console.log('Usando fallback final: São Paulo');
             return { estado: 'SP', cidade: 'Brasil' };
         }
 
         function mapearEstado(regiao) {
             const mapeamento = {
-                'são paulo': 'SP', 'sao paulo': 'SP', 'sp': 'SP',
-                'rio de janeiro': 'RJ', 'rj': 'RJ',
-                'minas gerais': 'MG', 'mg': 'MG',
-                'bahia': 'BA', 'ba': 'BA',
-                'rio grande do sul': 'RS', 'rs': 'RS',
-                'paraná': 'PR', 'parana': 'PR', 'pr': 'PR',
-                'santa catarina': 'SC', 'sc': 'SC',
-                'ceará': 'CE', 'ceara': 'CE', 'ce': 'CE',
-                'pernambuco': 'PE', 'pe': 'PE',
-                'goiás': 'GO', 'goias': 'GO', 'go': 'GO',
-                'espírito santo': 'ES', 'espirito santo': 'ES', 'es': 'ES',
-                'distrito federal': 'DF', 'df': 'DF', 'brasília': 'DF', 'brasilia': 'DF',
-                'pará': 'PA', 'para': 'PA', 'pa': 'PA',
-                'maranhão': 'MA', 'maranhao': 'MA', 'ma': 'MA',
-                'paraíba': 'PB', 'paraiba': 'PB', 'pb': 'PB',
-                'rio grande do norte': 'RN', 'rn': 'RN',
-                'alagoas': 'AL', 'al': 'AL',
-                'sergipe': 'SE', 'se': 'SE',
-                'piauí': 'PI', 'piaui': 'PI', 'pi': 'PI',
-                'acre': 'AC', 'ac': 'AC',
-                'amazonas': 'AM', 'am': 'AM',
-                'amapá': 'AP', 'amapa': 'AP', 'ap': 'AP',
-                'rondônia': 'RO', 'rondonia': 'RO', 'ro': 'RO',
-                'roraima': 'RR', 'rr': 'RR',
-                'tocantins': 'TO', 'to': 'TO',
-                'mato grosso': 'MT', 'mt': 'MT',
-                'mato grosso do sul': 'MS', 'ms': 'MS'
+                // Nomes completos
+                'acre': 'AC', 'amazonas': 'AM', 'amapá': 'AP', 'amapa': 'AP',
+                'pará': 'PA', 'para': 'PA', 'rondônia': 'RO', 'rondonia': 'RO',
+                'roraima': 'RR', 'tocantins': 'TO',
+                
+                'alagoas': 'AL', 'bahia': 'BA', 'ceará': 'CE', 'ceara': 'CE',
+                'maranhão': 'MA', 'maranhao': 'MA', 'paraíba': 'PB', 'paraiba': 'PB',
+                'pernambuco': 'PE', 'piauí': 'PI', 'piaui': 'PI',
+                'rio grande do norte': 'RN', 'sergipe': 'SE',
+                
+                'distrito federal': 'DF', 'brasília': 'DF', 'brasilia': 'DF',
+                'goiás': 'GO', 'goias': 'GO', 'mato grosso': 'MT',
+                'mato grosso do sul': 'MS',
+                
+                'espírito santo': 'ES', 'espirito santo': 'ES',
+                'minas gerais': 'MG', 'rio de janeiro': 'RJ',
+                'são paulo': 'SP', 'sao paulo': 'SP',
+                
+                'paraná': 'PR', 'parana': 'PR', 'rio grande do sul': 'RS',
+                'santa catarina': 'SC',
+                
+                // Siglas
+                'ac': 'AC', 'am': 'AM', 'ap': 'AP', 'pa': 'PA', 'ro': 'RO',
+                'rr': 'RR', 'to': 'TO', 'al': 'AL', 'ba': 'BA', 'ce': 'CE',
+                'ma': 'MA', 'pb': 'PB', 'pe': 'PE', 'pi': 'PI', 'rn': 'RN',
+                'se': 'SE', 'df': 'DF', 'go': 'GO', 'mt': 'MT', 'ms': 'MS',
+                'es': 'ES', 'mg': 'MG', 'rj': 'RJ', 'sp': 'SP', 'pr': 'PR',
+                'rs': 'RS', 'sc': 'SC',
+                
+                // Variações comuns
+                'state of são paulo': 'SP', 'state of rio de janeiro': 'RJ',
+                'state of minas gerais': 'MG', 'state of bahia': 'BA',
+                'state of paraná': 'PR', 'state of rio grande do sul': 'RS'
             };
             
-            return mapeamento[regiao] || null;
+            const estadoEncontrado = mapeamento[regiao.toLowerCase()];
+            if (estadoEncontrado) {
+                console.log(`Mapeamento: "${regiao}" -> ${estadoEncontrado}`);
+            }
+            return estadoEncontrado || null;
         }
 
-        // ==================== SEQUÊNCIA DE MENSAGENS ====================
+        // ==================== EFEITO TYPEWRITER COM CORES ====================
         
+        async function typewriterEffect(element, texto, velocidade = 80) {
+            element.textContent = '';
+            element.classList.add('typing');
+            
+            for (let i = 0; i < texto.length; i++) {
+                element.textContent += texto.charAt(i);
+                await sleep(velocidade);
+            }
+            
+            element.classList.remove('typing');
+        }
+
         async function startAvatarSequence() {
             const message = document.getElementById('avatarMessage');
             
-            // Detectar localização
-            const location = await detectUserLocation();
-            console.log('Estado detectado:', location.estado);
-            
-            // Gerar sequência personalizada usando o novo sistema
-            const sequencia = SISTEMA_COMPLETO.gerarSequencia(location.estado);
-            console.log('Sequência gerada:', sequencia);
-            
-            // Executar sequência de mensagens
-            for (let i = 0; i < sequencia.length; i++) {
-                message.classList.remove('show', 'shock');
-                await sleep(150);
+            try {
+                // Detectar localização
+                const location = await detectUserLocation();
+                console.log('Localização final detectada:', location);
                 
-                message.textContent = sequencia[i];
-                message.classList.add('show');
-                if (i === 1) message.classList.add('shock');
+                // Gerar sequência personalizada
+                const sequencia = SISTEMA_COMPLETO.gerarSequencia(location.estado);
+                console.log('Sequência personalizada:', sequencia);
                 
-                await sleep(i === 2 ? 2500 : 1500);
+                // Executar sequência de mensagens com cores e typewriter
+                for (let i = 0; i < sequencia.length; i++) {
+                    const item = sequencia[i];
+                    
+                    // Limpar classes e ocultar
+                    message.className = 'avatar-message';
+                    message.style.opacity = '0';
+                    await sleep(200);
+                    
+                    // Adicionar classe da fase e mostrar
+                    message.classList.add(item.classe);
+                    message.style.opacity = '1';
+                    
+                    // Aplicar efeito typewriter
+                    await typewriterEffect(message, item.texto, 60); // Velocidade rápida
+                    
+                    // Pausa entre frases
+                    await sleep(i === 2 ? 2500 : 1500);
+                }
+            } catch (error) {
+                console.error('Erro na sequência do avatar:', error);
+                // Fallback de emergência
+                message.textContent = "Como as pessoas que TE AMAM TE CHAMAM? 👇";
+                message.classList.add('fase-pergunta');
+                message.style.opacity = '1';
             }
         }
 
@@ -753,7 +905,9 @@
 
         // ==================== INICIALIZAÇÃO ====================
         
-        console.log('Sistema completo carregado: 27 estados + fusos horários corretos');
+        console.log('Sistema COMPLETO carregado: 26 estados + DF + cores + typewriter');
+        console.log('Estados configurados:', Object.keys(SISTEMA_COMPLETO.ESTADOS_CONFIG).length);
+        console.log('Correções: SP = "nossa!" | ES = "Canel Verde!"');
         
         // Iniciar sequência após 2 segundos
         setTimeout(() => {
