@@ -516,58 +516,120 @@
 
             // ============ MENSAGENS CONTEXTUAIS POR HORÁRIO ============
             getMensagemTempo: function(hora, dia, estado) {
+                const config = this.ESTADOS_CONFIG[estado] || this.ESTADOS_CONFIG['SP'];
+                
                 // Manhã (5-11h)
                 if (hora >= 5 && hora < 12) {
                     if (dia === 1) return "BOM DIA! SEGUNDA ANIMADA!";
-                    if (dia === 6) return "BOM DIA! SEXTOU!";
+                    if (dia === 5) return "BOM DIA! SEXTA-FEIRA!";
+                    if (dia === 6) return "BOM DIA! SÁBADO PERFEITO!";
                     if (dia === 0) return "BOM DIA! DOMINGO ABENÇOADO!";
-                    return "BOM DIA!";
+                    return "BOM DIA! QUE MANHÃ LINDA!";
                 }
                 // Tarde (12-17h)
                 else if (hora >= 12 && hora < 18) {
-                    if (dia === 5) return "BOA TARDE! SEXTA É DIA!";
-                    if (dia === 6) return "BOA TARDE! SÁBADO PERFEITO!";
-                    return "BOA TARDE!";
+                    if (dia === 1) return "BOA TARDE! SEGUNDA PRODUTIVA!";
+                    if (dia === 5) return "BOA TARDE! SEXTA É VIDA!";
+                    if (dia === 6) return "BOA TARDE! SÁBADO GOSTOSO!";
+                    if (dia === 0) return "BOA TARDE! DOMINGO RELAXANTE!";
+                    return "BOA TARDE! QUE CALOR BOM!";
                 }
                 // Noite (18-23h)
                 else if (hora >= 18 && hora < 24) {
-                    if (dia === 5) return "BOA NOITE! SEXTA À NOITE!";
-                    return "BOA NOITE!";
+                    if (dia === 1) return "BOA NOITE! SEGUNDA CHEGANDO AO FIM!";
+                    if (dia === 5) return "BOA NOITE! SEXTA À NOITE É TUDO!";
+                    if (dia === 6) return "BOA NOITE! SÁBADO À NOITE!";
+                    if (dia === 0) return "BOA NOITE! DOMINGO TRANQUILO!";
+                    return "BOA NOITE! QUE NOITE ESPECIAL!";
                 }
                 // Madrugada (0-4h)
                 else {
-                    return "OI! TÁ ACORDADO(A) AINDA?";
+                    if (dia === 1) return "É MADRUGADA! SEGUNDA JÁ COMEÇOU!";
+                    if (dia === 6) return "É MADRUGADA! SABADÃO ROLANDO!";
+                    if (dia === 0) return "É MADRUGADA! DOMINGO DE MADRUGADA!";
+                    return "É MADRUGADA! TÁ ACORDADO(A) AINDA?";
                 }
             },
 
-            // ============ HORÁRIO LOCAL POR ESTADO ============
+            // ============ HORÁRIO LOCAL POR ESTADO COM FALLBACKS ROBUSTOS ============
             getHorarioLocal: function(estado) {
                 const config = this.ESTADOS_CONFIG[estado] || this.ESTADOS_CONFIG['SP'];
                 const agora = new Date();
                 
+                // Tentativa 1: Timezone específico do estado
                 try {
                     const horarioLocal = new Date(agora.toLocaleString("en-US", {timeZone: config.timezone}));
+                    console.log(`⏰ Horário ${estado} via timezone ${config.timezone}:`, horarioLocal);
                     return {
                         hora: horarioLocal.getHours(),
                         minuto: horarioLocal.getMinutes(),
                         dia: horarioLocal.getDay(),
-                        formatado: `${horarioLocal.getHours().toString().padStart(2, '0')}:${horarioLocal.getMinutes().toString().padStart(2, '0')}`
+                        formatado: `${horarioLocal.getHours().toString().padStart(2, '0')}:${horarioLocal.getMinutes().toString().padStart(2, '0')}`,
+                        metodo: 'timezone_especifico'
                     };
                 } catch (error) {
-                    // Fallback para horário do navegador
-                    return {
-                        hora: agora.getHours(),
-                        minuto: agora.getMinutes(),
-                        dia: agora.getDay(),
-                        formatado: `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`
-                    };
+                    console.log(`❌ Erro timezone específico para ${estado}:`, error.message);
                 }
+                
+                // Tentativa 2: Fallback por região (baseado no UTC offset)
+                try {
+                    const offsetMinutos = config.utc_offset * 60;
+                    const utc = agora.getTime() + (agora.getTimezoneOffset() * 60000);
+                    const horarioLocal = new Date(utc + (offsetMinutos * 60000));
+                    console.log(`⏰ Horário ${estado} via UTC offset ${config.utc_offset}:`, horarioLocal);
+                    return {
+                        hora: horarioLocal.getHours(),
+                        minuto: horarioLocal.getMinutes(),
+                        dia: horarioLocal.getDay(),
+                        formatado: `${horarioLocal.getHours().toString().padStart(2, '0')}:${horarioLocal.getMinutes().toString().padStart(2, '0')}`,
+                        metodo: 'utc_offset'
+                    };
+                } catch (error) {
+                    console.log(`❌ Erro UTC offset para ${estado}:`, error.message);
+                }
+                
+                // Tentativa 3: Fallback por timezone similar
+                const fallbackTimezones = {
+                    'AC': 'America/Rio_Branco',
+                    'AM': 'America/Manaus', 
+                    'RO': 'America/Porto_Velho',
+                    'RR': 'America/Boa_Vista',
+                    'MT': 'America/Cuiaba',
+                    'MS': 'America/Campo_Grande',
+                    'default': 'America/Sao_Paulo'
+                };
+                
+                const fallbackTz = fallbackTimezones[estado] || fallbackTimezones.default;
+                try {
+                    const horarioLocal = new Date(agora.toLocaleString("en-US", {timeZone: fallbackTz}));
+                    console.log(`⏰ Horário ${estado} via fallback timezone ${fallbackTz}:`, horarioLocal);
+                    return {
+                        hora: horarioLocal.getHours(),
+                        minuto: horarioLocal.getMinutes(),
+                        dia: horarioLocal.getDay(),
+                        formatado: `${horarioLocal.getHours().toString().padStart(2, '0')}:${horarioLocal.getMinutes().toString().padStart(2, '0')}`,
+                        metodo: 'fallback_timezone'
+                    };
+                } catch (error) {
+                    console.log(`❌ Erro fallback timezone para ${estado}:`, error.message);
+                }
+                
+                // Tentativa 4: Horário do navegador como último recurso
+                console.log(`🏠 Usando horário do navegador para ${estado}`);
+                return {
+                    hora: agora.getHours(),
+                    minuto: agora.getMinutes(),
+                    dia: agora.getDay(),
+                    formatado: `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`,
+                    metodo: 'navegador_local'
+                };
             },
 
             // ============ GERAR SEQUÊNCIA COMPLETA PERSONALIZADA ============
             gerarSequencia: function(estado) {
                 const config = this.ESTADOS_CONFIG[estado] || this.ESTADOS_CONFIG['SP'];
                 const tempo = this.getHorarioLocal(estado);
+                const mensagemTempo = this.getMensagemTempo(tempo.hora, tempo.dia, estado);
                 
                 // Lógica para "DO" vs "DE" baseado na primeira letra
                 const preposicao = ['A', 'E', 'I', 'O', 'U'].includes(config.nome.charAt(0)) ? 'DO' : 'DE';
@@ -580,6 +642,10 @@
                     {
                         texto: `${config.gentilico} ÀS ${tempo.formatado} - ${config.expressao}`,
                         classe: "fase-gentilico"
+                    },
+                    {
+                        texto: `${mensagemTempo}`,
+                        classe: "fase-horario"
                     },
                     {
                         texto: "COMO AS PESSOAS QUE TE AMAM TE CHAMAM? 👇",
@@ -836,8 +902,14 @@
                     // Aplicar efeito typewriter
                     await typewriterEffect(message, item.texto, 60); // Velocidade rápida
                     
-                    // Pausa entre frases
-                    await sleep(i === 1 ? 2500 : 1500);
+                    // Pausa entre frases - mais tempo na mensagem de horário e na final
+                    if (i === 2) { // Mensagem de horário
+                        await sleep(2000);
+                    } else if (i === 3) { // Mensagem final
+                        await sleep(1000);
+                    } else {
+                        await sleep(1500);
+                    }
                 }
             } catch (error) {
                 console.error('❌ Erro na sequência do avatar:', error);
@@ -854,10 +926,13 @@
 
         // ==================== INICIALIZAÇÃO ====================
         
-        console.log('🚀 Sistema COMPLETO carregado: 27 estados + DF + cores + typewriter + 8 APIs');
+        console.log('🚀 Sistema COMPLETO carregado: 27 estados + DF + cores + typewriter + 8 APIs + contexto horário');
         console.log('📊 Estados configurados:', Object.keys(SISTEMA_COMPLETO.ESTADOS_CONFIG).length);
         console.log('✨ Expressões especiais: ES="CANELA VERDE!" | MG="QUE TREM BOM!" | BA="OXE, QUE MASSA!" | RS="BAAAAH, QUE LEGAL!"');
         console.log('👩‍💼 Avatar da Adriana carregado: https://pub-e40d9ad14e5a4e13b2bfe7e2ae67bb03.r2.dev/Adriana-vmake%20(1).png');
+        console.log('🕒 Contextos de horário: BOM DIA | BOA TARDE | BOA NOITE | É MADRUGADA + contexto do dia da semana');
+        console.log('⏰ Fusos horários: AC/RO(-5/-4h) | AM/MT/MS(-4h) | Resto(-3h) + fallbacks robustos');
+        console.log('💬 Sequência: ESTADO → GENTÍLICO+EXPRESSÃO → HORÁRIO+CONTEXTO → PERGUNTA FINAL');
         
         // Iniciar sequência após 2 segundos
         setTimeout(() => {
