@@ -45,25 +45,36 @@
             overflow-x: hidden;
             min-height: 100vh;
             background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
         }
 
         .container {
+            width: 100%;
             max-width: 420px;
-            margin: 0 auto;
-            padding: 12px;
             position: relative;
         }
 
         .avatar-section {
             text-align: center;
-            padding: 18px 12px 12px;
+            padding: 18px 12px 8px;
             background: var(--white);
-            margin-bottom: 20px;
             border-radius: 20px;
             box-shadow: var(--shadow-luxury);
             border: 2px solid rgba(212, 175, 55, 0.3);
-            margin-top: 12px;
             transition: all 1s ease;
+            position: relative;
+            min-height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .header-info {
+            margin-bottom: 15px;
+            flex-shrink: 0;
         }
 
         .name {
@@ -79,21 +90,23 @@
             font-size: 15px;
             font-weight: 700;
             color: var(--purple);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .avatar-container {
             position: relative;
             display: flex;
             justify-content: center;
-            margin: 12px 0 15px 0;
+            flex: 1;
+            align-items: flex-start;
             width: 100%;
         }
 
         .avatar {
-            /* Dimensões otimizadas para proporção 3:4 (mais natural) */
-            width: min(85vw, 320px);
+            /* Maximiza o uso da tela disponível */
+            width: min(95vw, 380px);
             height: auto;
+            max-height: calc(100vh - 160px);
             aspect-ratio: 3/4;
             object-fit: cover;
             object-position: center top;
@@ -109,11 +122,11 @@
 
         .avatar-message {
             position: absolute;
-            top: 25%;
+            top: 22%;
             left: 58%;
             transform: translateX(-50%);
-            width: min(45vw, 170px);
-            font-size: clamp(12px, 3.5vw, 14px);
+            width: min(45vw, 180px);
+            font-size: clamp(13px, 3.8vw, 15px);
             font-weight: 900;
             color: var(--dark);
             text-align: center;
@@ -134,78 +147,101 @@
 
         .avatar-message.shock {
             color: #DC2626;
-            font-size: clamp(13px, 4vw, 16px);
+            font-size: clamp(14px, 4.2vw, 17px);
         }
 
-        /* Responsivo otimizado */
+        /* Responsivo otimizado para tela cheia */
         @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
             .container {
-                padding: 8px;
                 max-width: 100%;
             }
             
             .avatar-section {
-                padding: 15px 8px 10px;
-                margin: 8px 0 15px 0;
+                padding: 12px 8px 5px;
                 border-radius: 16px;
+                min-height: calc(100vh - 10px);
             }
             
             .avatar {
-                width: min(88vw, 280px);
+                width: min(97vw, 320px);
+                max-height: calc(100vh - 120px);
                 border-radius: 16px;
             }
             
             .avatar-message {
-                top: 22%;
+                top: 20%;
                 left: 60%;
-                width: min(42vw, 150px);
+                width: min(42vw, 160px);
             }
             
             .name {
-                font-size: clamp(20px, 6vw, 24px);
+                font-size: clamp(22px, 6vw, 26px);
             }
 
             .specialty {
                 font-size: clamp(13px, 3.8vw, 15px);
             }
+
+            .header-info {
+                margin-bottom: 10px;
+            }
         }
 
         @media (max-width: 360px) {
-            .container {
-                padding: 6px;
+            body {
+                padding: 3px;
             }
             
             .avatar-section {
-                padding: 12px 6px 8px;
-                margin: 6px 0 12px 0;
+                padding: 10px 6px 3px;
+                min-height: calc(100vh - 6px);
             }
             
             .avatar {
-                width: min(90vw, 260px);
+                width: min(98vw, 300px);
+                max-height: calc(100vh - 100px);
                 border-radius: 14px;
             }
             
             .avatar-message {
-                top: 20%;
+                top: 18%;
                 left: 62%;
-                width: min(40vw, 130px);
+                width: min(40vw, 140px);
             }
         }
 
-        /* Para telas muito grandes (tablets em modo retrato) */
-        @media (min-width: 481px) and (max-width: 768px) {
-            .container {
-                max-width: 450px;
-                padding: 16px;
+        /* Para telas muito altas (evita avatar muito grande) */
+        @media (min-height: 800px) {
+            .avatar {
+                max-height: 600px;
+            }
+        }
+
+        /* Para landscape mode no mobile */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .avatar-section {
+                min-height: calc(100vh - 10px);
+                padding: 8px 6px 3px;
             }
             
             .avatar {
-                width: min(75vw, 340px);
+                max-height: calc(100vh - 80px);
             }
             
-            .avatar-message {
-                width: min(35vw, 180px);
-                left: 55%;
+            .header-info {
+                margin-bottom: 5px;
+            }
+            
+            .name {
+                font-size: 20px;
+            }
+            
+            .specialty {
+                font-size: 13px;
             }
         }
 
@@ -235,8 +271,10 @@
 <body>
     <div class="container">
         <div class="avatar-section">
-            <div class="name">Adriana Sousa</div>
-            <div class="specialty">Especialista em Transformação Mental</div>
+            <div class="header-info">
+                <div class="name">Adriana Sousa</div>
+                <div class="specialty">Especialista em Transformação Mental</div>
+            </div>
             
             <div class="avatar-container">
                 <img src="https://pub-e40d9ad14e5a4e13b2bfe7e2ae67bb03.r2.dev/Adriana-vmake%20(1).png" 
